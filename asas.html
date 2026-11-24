@@ -1,0 +1,275 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Меню Пуск Windows 8.0</title>
+    <style>
+        /* Базовый сброс и настройки экрана */
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background-color: #180052; /* Классический темно-фиолетовый фон Win 8 */
+            color: #ffffff;
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            overflow-y: hidden; /* Запрещаем вертикальный скролл */
+        }
+
+        /* Верхняя панель: заголовок "Пуск" и профиль */
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 40px 80px 20px 80px;
+            flex-shrink: 0;
+        }
+
+        .header h1 {
+            font-size: 42px;
+            font-weight: 300;
+            letter-spacing: 1px;
+        }
+
+        .user-profile {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .user-info {
+            text-align: right;
+        }
+
+        .user-name {
+            font-size: 18px;
+            font-weight: 400;
+        }
+
+        .user-sub {
+            font-size: 12px;
+            opacity: 0.7;
+        }
+
+        .avatar {
+            width: 45px;
+            height: 45px;
+            background-color: #2d89ef;
+        }
+
+        /* Контейнер с горизонтальным скроллом */
+        .start-screen {
+            display: flex;
+            gap: 60px; /* Отступ между группами плиток */
+            padding: 20px 80px 40px 80px;
+            overflow-x: auto; /* Включаем горизонтальный скролл */
+            height: 100%;
+            align-items: flex-start;
+        }
+
+        /* Стилизация полосы прокрутки под стиль Windows 8 */
+        .start-screen::-webkit-scrollbar {
+            height: 12px;
+        }
+        .start-screen::-webkit-scrollbar-track {
+            background: rgba(255, 255, 255, 0.05);
+        }
+        .start-screen::-webkit-scrollbar-thumb {
+            background: rgba(255, 255, 255, 0.3);
+        }
+        .start-screen::-webkit-scrollbar-thumb:hover {
+            background: rgba(255, 255, 255, 0.5);
+        }
+
+        /* Группа плиток (колонка) */
+        .tile-group {
+            display: grid;
+            grid-template-columns: repeat(4, 110px); /* 4 базовые колонки */
+            grid-auto-rows: 110px; /* Высота базовой строки */
+            gap: 10px; /* Фирменный отступ между плитками */
+            flex-shrink: 0; /* Запрещаем сжиматься при нехватке места */
+        }
+
+        /* Базовый стиль плитки */
+        .tile {
+            padding: 12px;
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-end; /* Текст прижат к нижнему левому углу */
+            position: relative;
+            cursor: pointer;
+            transition: transform 0.1s ease, outline 0.1s ease;
+            user-select: none;
+        }
+
+        /* Эффект при наведении и клике */
+        .tile:hover {
+            outline: 3px solid rgba(255, 255, 255, 0.4);
+        }
+
+        .tile:active {
+            transform: scale(0.97);
+        }
+
+        .tile-title {
+            font-size: 13px;
+            font-weight: 400;
+        }
+
+        /* Размеры плиток (Сетка Metro) */
+        .small {
+            grid-column: span 1;
+            grid-row: span 1;
+        }
+
+        .wide {
+            grid-column: span 2;
+            grid-row: span 1;
+        }
+
+        .large {
+            grid-column: span 2;
+            grid-row: span 2;
+        }
+
+        /* Схематичная иконка по центру (вместо картинок) */
+        .tile-icon {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -60%);
+            width: 32px;
+            height: 32px;
+            border: 2px solid rgba(255, 255, 255, 0.8);
+        }
+
+        /* Фирменные цвета плиток Windows 8 */
+        .bg-blue { background-color: #2d89ef; }
+        .bg-teal { background-color: #00aba9; }
+        .bg-green { background-color: #00a300; }
+        .bg-orange { background-color: #da532c; }
+        .bg-purple { background-color: #7e3878; }
+        .bg-red { background-color: #b91d47; }
+        .bg-dark-blue { background-color: #2b5797; }
+        .bg-yellow { background-color: #ffc40d; color: #1d1d1d; }
+    </style>
+</head>
+<body>
+
+    <!-- Шапка экрана -->
+    <header class="header">
+        <h1>Пуск</h1>
+        <div class="user-profile">
+            <div class="user-info">
+                <div class="user-name">Пользователь</div>
+                <div class="user-sub">Локальная учетная запись</div>
+            </div>
+            <div class="avatar"></div>
+        </div>
+    </header>
+
+    <!-- Основная область с горизонтальным скроллом -->
+    <main class="start-screen">
+
+        <!-- Группа 1: Основные приложения -->
+        <section class="tile-group">
+            <div class="tile wide bg-blue">
+                <div class="tile-icon"></div>
+                <span class="tile-title">Почта</span>
+            </div>
+            <div class="tile wide bg-purple">
+                <div class="tile-icon"></div>
+                <span class="tile-title">Календарь</span>
+            </div>
+            <div class="tile large bg-teal">
+                <div class="tile-icon"></div>
+                <span class="tile-title">Рабочий стол</span>
+            </div>
+            <div class="tile small bg-orange">
+                <div class="tile-icon"></div>
+                <span class="tile-title">Люди</span>
+            </div>
+            <div class="tile small bg-green">
+                <div class="tile-icon"></div>
+                <span class="tile-title">Фото</span>
+            </div>
+            <div class="tile wide bg-dark-blue">
+                <div class="tile-icon"></div>
+                <span class="tile-title">Internet Explorer</span>
+            </div>
+            <div class="tile wide bg-green">
+                <div class="tile-icon"></div>
+                <span class="tile-title">Магазин</span>
+            </div>
+            <div class="tile small bg-red">
+                <div class="tile-icon"></div>
+                <span class="tile-title">Музыка</span>
+            </div>
+            <div class="tile small bg-purple">
+                <div class="tile-icon"></div>
+                <span class="tile-title">Видео</span>
+            </div>
+        </section>
+
+        <!-- Группа 2: Информация и медиа -->
+        <section class="tile-group">
+            <div class="tile large bg-blue">
+                <div class="tile-icon"></div>
+                <span class="tile-title">Погода</span>
+            </div>
+            <div class="tile wide bg-red">
+                <div class="tile-icon"></div>
+                <span class="tile-title">Новости</span>
+            </div>
+            <div class="tile wide bg-orange">
+                <div class="tile-icon"></div>
+                <span class="tile-title">Спорт</span>
+            </div>
+            <div class="tile wide bg-green">
+                <div class="tile-icon"></div>
+                <span class="tile-title">Финансы</span>
+            </div>
+            <div class="tile small bg-teal">
+                <div class="tile-icon"></div>
+                <span class="tile-title">Карты</span>
+            </div>
+            <div class="tile small bg-yellow">
+                <span class="tile-icon" style="border-color: #1d1d1d;"></div>
+                <span class="tile-title">Заметки</span>
+            </div>
+        </section>
+
+        <!-- Группа 3: Дополнительные блоки (чтобы гарантированно появился скролл) -->
+        <section class="tile-group">
+            <div class="tile small bg-dark-blue">
+                <div class="tile-icon"></div>
+                <span class="tile-title">Параметры</span>
+            </div>
+            <div class="tile small bg-purple">
+                <div class="tile-icon"></div>
+                <span class="tile-title">Камера</span>
+            </div>
+            <div class="tile wide bg-teal">
+                <div class="tile-icon"></div>
+                <span class="tile-title">OneDrive</span>
+            </div>
+            <div class="tile large bg-orange">
+                <div class="tile-icon"></div>
+                <span class="tile-title">Игры Xbox</span>
+            </div>
+            <div class="tile wide bg-blue">
+                <div class="tile-icon"></div>
+                <span class="tile-title">Skype</span>
+            </div>
+        </section>
+
+    </main>
+
+</body>
+</html>
